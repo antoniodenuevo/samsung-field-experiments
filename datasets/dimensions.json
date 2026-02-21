@@ -1,0 +1,16 @@
+{
+  "colors": {
+    "identity":    "#8B6DB0",
+    "people":      "#b184b5",
+    "places":      "#7083bc",
+    "experiences": "#3585ab",
+    "joy":         "#fa8778"
+  },
+  "clusters": {
+    "identity":    { "label": "who you are" },
+    "people":      { "label": "the ones you love" },
+    "places":      { "label": "where you've been" },
+    "experiences": { "label": "what you've done" },
+    "joy":         { "label": "what made you smile" }
+  }
+}
