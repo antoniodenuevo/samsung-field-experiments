@@ -1,0 +1,20 @@
+#canvas {
+  width: 384px;
+  height: 826px;
+  overflow: hidden;
+  position: relative;
+  background: #111;
+}
+
+#canvas-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2389px;
+  height: 4272px;
+  transform: translate(-50%, -50%);
+  background: url('https://www.iamsterdam.com/_next/image?url=https://app.thefeedfactory.nl/api/assets/6437c3c9b948490faad18ba0/_Stedelijk_Museum___2_.webp&w=3840&q=75') center/cover no-repeat;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
