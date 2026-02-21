@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Sketches</title>
+    <style>
+        @font-face {
+            font-family: 'OneUI Sans';
+            src: url('assets/OneUISansGUI-400Regular%231.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000;
+            font-family: 'OneUI Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            color: #ffffff;
+            min-height: 100dvh;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 48px;
+        }
+
+        .sketch-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sketch-list a {
+            display: block;
+            padding: 20px 24px;
+            background: #1A1A1A;
+            border-radius: 16px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 400;
+            transition: background 200ms ease;
+        }
+
+        .sketch-list a:hover {
+            background: #2A2A2A;
+        }
+
+        .sketch-label {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Sketches</h1>
+    <ul class="sketch-list">
+        <li><a href="https://samsung-01.vercel.app/">Multitouch Sketch<div class="sketch-label">samsung-01.vercel.app</div></a></li>
+        <li><a href="https://samsung-02.vercel.app/">Gesture Sketch 1<div class="sketch-label">samsung-02.vercel.app</div></a></li>
+        <li><a href="https://samsung-03.vercel.app/">Spaces and Gesture Sketch<div class="sketch-label">samsung-03.vercel.app</div></a></li>
+        <li><a href="https://samsung-04.vercel.app/">Touch Trace Sketch<div class="sketch-label">samsung-04.vercel.app</div></a></li>
+    </ul>
+</body>
+</html>

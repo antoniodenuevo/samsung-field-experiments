@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Memory Space</title>
+<style>
+  @font-face {
+    font-family: 'OneUI Sans';
+    src: url('assets/OneUISansGUI-400Regular%231.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    font-family: 'OneUI Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+  }
+  #canvas {
+    width: 384px;
+    height: 826px;
+    overflow: hidden;
+    position: relative;
+    background: #111;
+  }
+  #canvas-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2389px;
+    height: 4272px;
+    transform: translate(-50%, -50%);
+    background: url('https://www.iamsterdam.com/_next/image?url=https://app.thefeedfactory.nl/api/assets/6437c3c9b948490faad18ba0/_Stedelijk_Museum___2_.webp&w=3840&q=75') center/cover no-repeat;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  #header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 20px 0 15px;
+    background: none;
+    transition: opacity 0.4s ease;
+  }
+  #filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px;
+    background: rgba(0,0,0,0.62);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    border-radius: 40px;
+    padding: 0 10px;
+  }
+  #filters button {
+    background: none;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    color: white;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -0.24px;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+  }
+  #filters button.active {
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* Scrollable area */
+  #scroll-area {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    touch-action: none;
+    transition: opacity 0.4s ease;
+  }
+
+  /* Cards container */
+  #cards {
+    position: absolute;
+    left: 0;
+    width: 384px;
+    height: 3500px;
+  }
+
+  /* Memory card */
+  .mem-card {
+    position: absolute;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  }
+
+  /* Note type */
+  .mem-card .note-inner {
+    width: 100%; height: 100%;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .mem-card .note-inner p {
+    color: #1a1a1a;
+    font-family: Georgia, serif;
+    font-style: italic;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* Music type */
+  .mem-card .music-inner {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .mem-card .music-inner .play-btn {
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mem-card .music-inner .play-btn .triangle {
+    width: 0; height: 0;
+    border-top: solid transparent;
+    border-bottom: solid transparent;
+    border-left: solid rgba(255,255,255,0.8);
+  }
+  .mem-card .music-inner p {
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  /* Photo/screenshot type */
+  .mem-card .photo-inner {
+    width: 100%; height: 100%;
+    position: relative;
+  }
+
+  /* ============================================================ */
+  /* EXPANDED VIEW                                                 */
+  /* ============================================================ */
+
+  #expanded {
+    position: absolute;
+    inset: 0;
+    z-index: 400;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  #expanded.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #exp-image {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 475px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+  }
+  #exp-panel {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 351px;
+    background: rgba(0,0,0,0.62);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    padding: 17px 20px;
+    overflow-y: auto;
+  }
+  .exp-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .exp-top {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .exp-text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .exp-text-group .dim-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .exp-text-group .dim-label {
+    font-size: 10px;
+    color: white;
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+    text-transform: capitalize;
+  }
+  .exp-text-group .type-label {
+    color: #777;
+    font-size: 10px;
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+    text-transform: capitalize;
+  }
+  .exp-text-group h3 {
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.32px;
+  }
+  .exp-top .tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .exp-top .tags span {
+    background: rgba(0,0,0,0.4);
+    -webkit-backdrop-filter: blur(9.5px);
+    backdrop-filter: blur(9.5px);
+    border-radius: 20px;
+    padding: 8px 10px;
+    color: white;
+    font-size: 10px;
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+  }
+  .exp-connected {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .exp-connected .connected-label {
+    color: white;
+    font-size: 10px;
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+  .exp-connected .connected-row {
+    display: flex;
+    gap: 10px;
+  }
+  .exp-connected .connected-card {
+    width: 80px; height: 80px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.79);
+    -webkit-backdrop-filter: blur(9.5px);
+    backdrop-filter: blur(9.5px);
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .exp-source {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .exp-source .source-label {
+    color: white;
+    font-size: 10px;
+    letter-spacing: -0.2px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+  .exp-source .source-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<div id="canvas">
+  <div id="canvas-bg"></div>
+  <div id="header">
+    <div id="filters"></div>
+  </div>
+
+  <div id="scroll-area">
+    <div id="cards"></div>
+  </div>
+
+  <div id="expanded">
+    <div id="exp-image"></div>
+    <div id="exp-panel">
+      <div class="exp-content">
+        <div class="exp-top">
+          <div class="exp-text-group">
+            <div class="dim-row">
+              <span class="dim-label" id="exp-dim"></span>
+              <span class="type-label" id="exp-type"></span>
+            </div>
+            <h3 id="exp-title"></h3>
+          </div>
+          <div class="tags" id="exp-tags"></div>
+        </div>
+        <div class="exp-connected" id="exp-connected">
+          <p class="connected-label">Connected to</p>
+          <div class="connected-row" id="exp-related"></div>
+        </div>
+        <div class="exp-source">
+          <p class="source-label">Source</p>
+          <img class="source-icon" id="exp-source-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/960px-Instagram_logo_2016.svg.png" width="20" height="20" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const IMAGES = [
+  "https://cdn.sanity.io/images/we4m1nyk/production/6c0f8c3d07710c3822521b096e76d4155a68a983-2880x1920.png",
+  "https://variety.com/wp-content/uploads/2019/06/charli-xcx-2019-credit-marcus-cooper--e1560439702262.jpg?w=1000&h=566&crop=1",
+  "https://images-prod.dazeddigital.com/640/azure/dazed-prod/1150/5/1155081.jpg",
+  "https://scannerdot.com/wp-content/uploads/STEDEIJK-0167.jpg",
+  "https://blog.kellywilliamsphotographer.com/wp-content/uploads//2023/09/best-manhattan-family-portrait-locations-3-1203.jpg",
+  "https://media.istockphoto.com/id/1403952374/photo/handsome-black-man-on-blue.jpg?s=170667a&w=0&k=20&c=FDSX7ldGyS1-LbpAEboRBAUkfcOFRapK4fdufPHPPfQ=",
+  "https://cdn.britannica.com/50/178150-050-8C580926/marketplace-Jamaa-el-Fna-square-Morocco-Marrakech.jpg",
+  "https://www.dreamsabroad.com/wp-content/uploads/2019/02/Amsterdam-river-clock-tower.jpg",
+  "https://www.ragoarts.com/items/index/2000/182_1_prints_multiples_june_2024_romare_bearden_mecklenburg_autumn_from_the_mecklenburg_series__rago_auction.jpg?t=1716409353",
+  "https://colly.com/media/pages/journal/the-creative-act-a-way-of-being/cb83f77bf1-1724585745/the-creative-act-rubin.jpg",
+  "https://www.normanrecords.com/artwork/large/204/205454-fka-twigs-eusexua.jpg",
+  "https://app.thefeedfactory.nl/api/assets/6437c3c9b948490faad18ba0/_Stedelijk_Museum___2_.webp",
+  "https://offloadmedia.feverup.com/secretldn.com/wp-content/uploads/2020/02/22155403/shutterstock_1479750143-min-666x470.jpg",
+  "https://www.stowbrothers.com/wp-content/uploads/2021/07/Stow-Brothers-HACKNEY-01.png",
+  "https://annetravelfoodie.com/wp-content/uploads/2023/07/Best-cocktails-cocktail-bar-barcelona.jpg",
+  "https://media.istockphoto.com/id/1479798765/photo/vertical-group-of-happy-friends-posing-for-a-selfie-on-a-spring-day-as-they-party-together.jpg?s=612x612&w=0&k=20&c=3ch9k6zg71DfVtWzf1Q-TgJXPeQyoflY7fCpiPLmoZs=",
+  "https://i.pinimg.com/736x/5f/4d/f3/5f4df3e3ffa0e4dcadffafeba26c04be.jpg",
+  "https://i.pinimg.com/736x/d0/05/fa/d005fa2c6aacb62e54fa8c22a4aee2c3.jpg",
+  "https://i.pinimg.com/736x/8c/8f/c3/8c8fc3d62e5519811ac527d7538b9c66.jpg"
+];
+
+const SOURCE_ICON = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/960px-Instagram_logo_2016.svg.png";
+
+const MEMORIES = [
+  { id: 1, type: "photo", title: "Ribeira at golden hour", tags: ["porto", "architecture", "light"], dimension: "places", color: "#D4956A", accent: "#C8A070", ratio: 1.4, x: 180, y: 120, z: 0, img: IMAGES[0] },
+  { id: 2, type: "music", title: "Porto saudade playlist", tags: ["porto", "saudade", "brazilian"], dimension: "identity", color: "#8B6DB0", accent: "#786898", ratio: 1, x: 320, y: 280, z: -200, img: IMAGES[16] },
+  { id: 3, type: "photo", title: "Barbican ceramics", tags: ["london", "exhibition", "ceramics"], dimension: "experiences", color: "#C4A882", accent: "#DDDDBB", ratio: 0.75, x: 100, y: 400, z: 100, img: IMAGES[11] },
+  { id: 4, type: "screenshot", title: "Japanese joinery detail", tags: ["japan", "architecture", "craft"], dimension: "identity", color: "#A8B8A0", accent: "#C88B70", ratio: 1.3, x: 300, y: 500, z: -100, img: IMAGES[9] },
+  { id: 5, type: "photo", title: "Canal run morning", tags: ["london", "running", "morning"], dimension: "experiences", color: "#7CA5B8", accent: "#8898A8", ratio: 1.5, x: 50, y: 650, z: 200, img: IMAGES[7] },
+  { id: 6, type: "note", title: "Can't sleep. Thinking about what home means when you have two.", tags: ["personal", "porto", "london"], dimension: "identity", color: "#2C2C2C", accent: "#3A3A3A", ratio: 1, x: 250, y: 750, z: -50 },
+  { id: 7, type: "photo", title: "Mum's bacalhau recipe", tags: ["porto", "food", "family"], dimension: "people", color: "#D49A6A", accent: "#C89868", ratio: 0.8, x: 160, y: 900, z: 150, img: IMAGES[14] },
+  { id: 8, type: "music", title: "Visible Cloaks — Reassemblage", tags: ["ambient", "electronic", "focus"], dimension: "identity", color: "#6B7B8D", accent: "#707888", ratio: 1, x: 340, y: 1000, z: -180, img: IMAGES[17] },
+  { id: 9, type: "photo", title: "Porto girls — New Year", tags: ["porto", "friends", "night"], dimension: "joy", color: "#C47B8B", accent: "#889870", ratio: 1.3, x: 80, y: 1100, z: 50, img: IMAGES[15] },
+  { id: 10, type: "photo", title: "Light through Barbican concrete", tags: ["london", "architecture", "brutalism"], dimension: "places", color: "#9A9A8E", accent: "#A0A098", ratio: 1.5, x: 280, y: 1250, z: -120, img: IMAGES[3] },
+  { id: 11, type: "screenshot", title: "Ceramic bowl — Katsumi Machimura", tags: ["japan", "ceramics", "inspiration"], dimension: "identity", color: "#B8A890", accent: "#DDDDBB", ratio: 0.9, x: 150, y: 1400, z: 80, img: IMAGES[8] },
+  { id: 12, type: "photo", title: "Tokyo backstreet at 5am", tags: ["japan", "travel", "solo"], dimension: "places", color: "#4A5568", accent: "#4A5060", ratio: 1.4, x: 320, y: 1500, z: -60, img: IMAGES[2] },
+  { id: 13, type: "photo", title: "Clerkenwell studio Friday", tags: ["london", "work", "architecture"], dimension: "experiences", color: "#A0937D", accent: "#A09080", ratio: 1.2, x: 60, y: 1650, z: 160, img: IMAGES[13] },
+  { id: 14, type: "music", title: "Caetano Veloso — Cucurrucucú", tags: ["brazilian", "saudade", "summer"], dimension: "identity", color: "#D4A574", accent: "#C8A078", ratio: 1, x: 250, y: 1780, z: -140, img: IMAGES[18] },
+  { id: 15, type: "photo", title: "Barcelona rooftop — masters crew", tags: ["barcelona", "friends", "sunset"], dimension: "joy", color: "#E8A87C", accent: "#D0A878", ratio: 1.3, x: 140, y: 1900, z: 40, img: IMAGES[12] },
+  { id: 16, type: "note", title: "Architecture is frozen music — Goethe. But what is melted architecture?", tags: ["quote", "architecture", "thinking"], dimension: "identity", color: "#2C2C2C", accent: "#3A3A3A", ratio: 0.8, x: 340, y: 2050, z: -90 },
+  { id: 17, type: "photo", title: "Half marathon finish", tags: ["london", "running", "achievement"], dimension: "joy", color: "#7DB8A0", accent: "#80B098", ratio: 1.5, x: 80, y: 2150, z: 130, img: IMAGES[4] },
+  { id: 18, type: "photo", title: "Peckham sunset from roof", tags: ["london", "home", "light"], dimension: "places", color: "#D4826A", accent: "#C07080", ratio: 1.4, x: 280, y: 2300, z: -30, img: IMAGES[1] },
+  { id: 19, type: "screenshot", title: "Tadao Ando — Church of Light", tags: ["architecture", "inspiration", "light"], dimension: "identity", color: "#8A8A80", accent: "#907868", ratio: 1.2, x: 160, y: 2450, z: 90, img: IMAGES[10] },
+  { id: 20, type: "photo", title: "Japanese breakfast I made", tags: ["food", "japan", "cooking"], dimension: "experiences", color: "#C4B896", accent: "#C09868", ratio: 0.75, x: 50, y: 2580, z: -160, img: IMAGES[6] },
+  { id: 21, type: "photo", title: "Dad at Douro river", tags: ["porto", "family", "river"], dimension: "people", color: "#6A94A8", accent: "#6088A8", ratio: 1.3, x: 300, y: 2700, z: 60, img: IMAGES[5] },
+  { id: 22, type: "music", title: "DJ Nigga Fox — Noite e Dia", tags: ["lisbon", "electronic", "night"], dimension: "identity", color: "#4A3A5C", accent: "#5A4870", ratio: 1, x: 120, y: 2850, z: -110, img: IMAGES[16] },
+  { id: 23, type: "photo", title: "Typography on Peckham wall", tags: ["london", "typography", "street"], dimension: "identity", color: "#7A7A6E", accent: "#A0A098", ratio: 1.5, x: 320, y: 2950, z: 140, img: IMAGES[3] },
+  { id: 24, type: "photo", title: "Porto — Sé cathedral stairs", tags: ["porto", "architecture", "stone"], dimension: "places", color: "#B8A080", accent: "#C8A070", ratio: 1.4, x: 80, y: 3100, z: -40, img: IMAGES[0] },
+  { id: 25, type: "note", title: "I cook mum's recipes to feel close to her when I'm far away", tags: ["family", "food", "porto"], dimension: "people", color: "#2C2C2C", accent: "#3A3A3A", ratio: 0.9, x: 250, y: 3250, z: 100 },
+];
+
+const DIM_COLORS = {
+  identity: "#1b1553",
+  people: "#b184b5",
+  places: "#7083bc",
+  experiences: "#3585ab",
+  joy: "#fa8778",
+};
+
+// ============================================================
+// STATE
+// ============================================================
+
+let scrollY = 0;
+let selected = null;
+let activeFilter = null;
+
+// ============================================================
+// DOM REFS
+// ============================================================
+
+const canvas = document.getElementById('canvas');
+const scrollArea = document.getElementById('scroll-area');
+const cardsContainer = document.getElementById('cards');
+const filtersEl = document.getElementById('filters');
+const expandedEl = document.getElementById('expanded');
+const expImage = document.getElementById('exp-image');
+const headerEl = document.getElementById('header');
+
+// ============================================================
+// BUILD FILTER BUTTONS
+// ============================================================
+
+Object.entries(DIM_COLORS).forEach(([dim, col]) => {
+  const btn = document.createElement('button');
+  btn.textContent = dim;
+  btn.dataset.dim = dim;
+  btn.dataset.color = col;
+  btn.addEventListener('click', () => {
+    if (selected) return;
+    activeFilter = activeFilter === dim ? null : dim;
+    updateFilters();
+    render();
+  });
+  filtersEl.appendChild(btn);
+});
+
+function updateFilters() {
+  filtersEl.querySelectorAll('button').forEach(btn => {
+    const dim = btn.dataset.dim;
+    btn.classList.toggle('active', activeFilter === dim);
+  });
+}
+
+// ============================================================
+// BUILD MEMORY CARDS
+// ============================================================
+
+const cardEls = [];
+
+MEMORIES.forEach(mem => {
+  const card = document.createElement('div');
+  card.className = 'mem-card';
+  card.dataset.id = mem.id;
+
+  if (mem.type === 'note') {
+    card.innerHTML = `
+      <div class="note-inner">
+        <p>${mem.title}</p>
+      </div>`;
+  } else if (mem.type === 'music') {
+    const musicBg = mem.img
+      ? `background: url('${mem.img}') center/cover no-repeat`
+      : `background: linear-gradient(135deg, ${mem.color}, ${mem.color}dd)`;
+    card.innerHTML = `
+      <div class="music-inner" style="${musicBg}">
+        <div class="play-btn"><div class="triangle"></div></div>
+      </div>`;
+  } else {
+    const bgStyle = mem.img
+      ? `background: url('${mem.img}') center/cover no-repeat`
+      : `background: linear-gradient(145deg, ${mem.color}ee, ${mem.color}88)`;
+    card.innerHTML = `
+      <div class="photo-inner" style="${bgStyle}">
+      </div>`;
+  }
+
+  card.addEventListener('click', () => {
+    if (selected) return;
+    selected = mem.id;
+    openExpanded(mem);
+    render();
+  });
+
+  cardsContainer.appendChild(card);
+  cardEls.push({ el: card, mem });
+});
+
+// ============================================================
+// RENDER
+// ============================================================
+
+function render() {
+  const filteredIds = activeFilter
+    ? new Set(MEMORIES.filter(m => m.dimension === activeFilter || m.tags.includes(activeFilter)).map(m => m.id))
+    : null;
+
+  cardEls.forEach(({ el, mem }) => {
+    if (filteredIds && !filteredIds.has(mem.id)) {
+      el.style.display = 'none';
+      return;
+    }
+
+    const viewY = mem.y - scrollY + 130;
+    if (viewY < -200 || viewY > 1100) {
+      el.style.display = 'none';
+      return;
+    }
+
+    const distFromCenter = Math.abs(viewY - 413);
+    const scale = Math.max(0.5, 1 - distFromCenter / 1200);
+    const baseW = 180;
+    const w = baseW * scale;
+    const h = w * mem.ratio;
+    const isSelected = selected === mem.id;
+
+    el.style.display = 'block';
+    el.style.left = (mem.x * scale - w / 2 + 192 - 192 * scale) + 'px';
+    el.style.top = (130 - scrollY + mem.y * scale - h / 2) + 'px';
+    el.style.width = w + 'px';
+    el.style.height = h + 'px';
+    el.style.borderRadius = (mem.type === 'note' ? 12 : 20) * scale + 'px';
+    el.style.opacity = 1;
+    el.style.transform = isSelected ? 'scale(1.4)' : 'scale(1)';
+    el.style.filter = (selected && !isSelected) ? 'blur(4px)' : 'none';
+    el.style.zIndex = isSelected ? 100 : Math.round(scale * 10);
+    el.style.pointerEvents = (scale > 0.3 && !selected) ? 'auto' : 'none';
+    el.style.boxShadow = `0 ${4 * scale}px ${16 * scale}px rgba(0,0,0,0.2)`;
+
+    // Scale inner text
+    const noteP = el.querySelector('.note-inner p');
+    if (noteP) {
+      noteP.style.fontSize = Math.max(8, 11 * scale) + 'px';
+      noteP.style.padding = (10 * scale) + 'px';
+    }
+
+    const musicInner = el.querySelector('.music-inner');
+    if (musicInner) {
+      musicInner.style.padding = (10 * scale) + 'px';
+      const playBtn = musicInner.querySelector('.play-btn');
+      if (playBtn) {
+        playBtn.style.width = (20 * scale) + 'px';
+        playBtn.style.height = (20 * scale) + 'px';
+      }
+      const tri = musicInner.querySelector('.triangle');
+      if (tri) {
+        tri.style.borderLeftWidth = (6 * scale) + 'px';
+        tri.style.borderTopWidth = (4 * scale) + 'px';
+        tri.style.borderBottomWidth = (4 * scale) + 'px';
+        tri.style.marginLeft = (2 * scale) + 'px';
+      }
+    }
+  });
+
+  // Fade header when expanded
+  headerEl.style.opacity = selected ? '0' : '1';
+  headerEl.style.pointerEvents = selected ? 'none' : 'auto';
+}
+
+// ============================================================
+// EXPANDED VIEW
+// ============================================================
+
+function openExpanded(mem) {
+  // Set background to accent color
+  expandedEl.style.background = mem.accent;
+
+  // Set image
+  if (mem.img) {
+    expImage.style.background = `url('${mem.img}') center/cover no-repeat`;
+  } else if (mem.type === 'note') {
+    expImage.style.background = '#ffffff';
+    expImage.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:40px">
+      <p style="color:#1a1a1a;font-family:Georgia,serif;font-style:italic;font-size:20px;line-height:1.5;text-align:center">${mem.title}</p>
+    </div>`;
+  } else {
+    expImage.style.background = `linear-gradient(145deg, ${mem.color}ee, ${mem.color}88)`;
+  }
+
+  // Populate detail
+  document.getElementById('exp-dim').textContent = mem.dimension;
+  document.getElementById('exp-type').textContent = mem.type;
+  document.getElementById('exp-title').textContent = mem.title;
+  document.getElementById('exp-tags').innerHTML = mem.tags.map(t => `<span>${t}</span>`).join('');
+
+  // Connected cards
+  const related = MEMORIES.filter(m => m.id !== mem.id && m.tags.some(t => mem.tags.includes(t))).slice(0, 3);
+  const connEl = document.getElementById('exp-connected');
+  const relEl = document.getElementById('exp-related');
+
+  if (related.length > 0) {
+    connEl.style.display = 'flex';
+    relEl.innerHTML = related.map(rm => {
+      const bg = rm.img
+        ? `background: url('${rm.img}') center/cover no-repeat`
+        : `background: rgba(0,0,0,0.79)`;
+      return `<div class="connected-card" data-id="${rm.id}" style="${bg}"></div>`;
+    }).join('');
+
+    relEl.querySelectorAll('.connected-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const targetId = parseInt(card.dataset.id);
+        const targetMem = MEMORIES.find(m => m.id === targetId);
+        if (targetMem) {
+          selected = targetId;
+          expImage.innerHTML = '';
+          openExpanded(targetMem);
+          render();
+        }
+      });
+    });
+  } else {
+    connEl.style.display = 'none';
+  }
+
+  // Show
+  expandedEl.classList.add('visible');
+}
+
+function closeExpanded() {
+  expandedEl.classList.remove('visible');
+  expImage.innerHTML = '';
+  selected = null;
+  render();
+}
+
+// Close on image click
+expImage.addEventListener('click', closeExpanded);
+
+// Close on Esc
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && selected) {
+    closeExpanded();
+  }
+});
+
+// ============================================================
+// GESTURES
+// ============================================================
+
+let touchLastY = 0;
+
+scrollArea.addEventListener('touchstart', function(e) {
+  if (selected) return;
+  e.preventDefault();
+  touchLastY = e.touches[0].clientY;
+}, { passive: false });
+
+scrollArea.addEventListener('touchmove', function(e) {
+  if (selected) return;
+  e.preventDefault();
+  const y = e.touches[0].clientY;
+  const dy = touchLastY - y;
+  scrollY = Math.max(0, Math.min(scrollY + dy * 1.5, 2800));
+  touchLastY = y;
+  render();
+}, { passive: false });
+
+scrollArea.addEventListener('wheel', function(e) {
+  if (selected) return;
+  e.preventDefault();
+  scrollY = Math.max(0, Math.min(scrollY + e.deltaY, 2800));
+  render();
+}, { passive: false });
+
+// Mouse drag
+let mouseDown = false;
+let mouseLastY = 0;
+
+scrollArea.addEventListener('mousedown', function(e) {
+  if (selected) return;
+  mouseDown = true;
+  mouseLastY = e.clientY;
+});
+
+scrollArea.addEventListener('mousemove', function(e) {
+  if (!mouseDown || selected) return;
+  const dy = mouseLastY - e.clientY;
+  scrollY = Math.max(0, Math.min(scrollY + dy * 1.5, 2800));
+  mouseLastY = e.clientY;
+  render();
+});
+
+document.addEventListener('mouseup', function() {
+  mouseDown = false;
+});
+
+// ============================================================
+// INIT
+// ============================================================
+
+updateFilters();
+render();
+</script>
+</body>
+</html>
