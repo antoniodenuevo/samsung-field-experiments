@@ -3,322 +3,297 @@
     "id": 1,
     "type": "photo",
     "title": "Ribeira at golden hour",
-    "tags": ["porto", "architecture", "light"],
+    "tags": [
+      "porto",
+      "architecture",
+      "light"
+    ],
     "dimension": "places",
-    "color": "#D4956A",
-    "accent": "#C8A070",
-    "ratio": 1.4,
-    "x": 180,
-    "y": 120,
     "img": "https://cdn.sanity.io/images/we4m1nyk/production/6c0f8c3d07710c3822521b096e76d4155a68a983-2880x1920.png"
   },
   {
     "id": 2,
     "type": "music",
     "title": "Porto saudade playlist",
-    "tags": ["porto", "saudade", "brazilian"],
+    "tags": [
+      "porto",
+      "saudade",
+      "brazilian"
+    ],
     "dimension": "identity",
-    "color": "#8B6DB0",
-    "accent": "#786898",
-    "ratio": 1,
-    "x": 320,
-    "y": 280,
     "img": "https://media.istockphoto.com/id/1479798765/photo/vertical-group-of-happy-friends-posing-for-a-selfie-on-a-spring-day-as-they-party-together.jpg?s=612x612&w=0&k=20&c=3ch9k6zg71DfVtWzf1Q-TgJXPeQyoflY7fCpiPLmoZs="
   },
   {
     "id": 3,
     "type": "photo",
     "title": "Barbican ceramics",
-    "tags": ["london", "exhibition", "ceramics"],
+    "tags": [
+      "london",
+      "exhibition",
+      "ceramics"
+    ],
     "dimension": "experiences",
-    "color": "#C4A882",
-    "accent": "#DDDDBB",
-    "ratio": 0.75,
-    "x": 100,
-    "y": 400,
     "img": "https://www.normanrecords.com/artwork/large/204/205454-fka-twigs-eusexua.jpg"
   },
   {
     "id": 4,
     "type": "screenshot",
     "title": "Japanese joinery detail",
-    "tags": ["japan", "architecture", "craft"],
+    "tags": [
+      "japan",
+      "architecture",
+      "craft"
+    ],
     "dimension": "identity",
-    "color": "#A8B8A0",
-    "accent": "#C88B70",
-    "ratio": 1.3,
-    "x": 300,
-    "y": 500,
     "img": "https://colly.com/media/pages/journal/the-creative-act-a-way-of-being/cb83f77bf1-1724585745/the-creative-act-rubin.jpg"
   },
   {
     "id": 5,
     "type": "photo",
     "title": "Canal run morning",
-    "tags": ["london", "running", "morning"],
+    "tags": [
+      "london",
+      "running",
+      "morning"
+    ],
     "dimension": "experiences",
-    "color": "#7CA5B8",
-    "accent": "#8898A8",
-    "ratio": 1.5,
-    "x": 50,
-    "y": 650,
     "img": "https://www.dreamsabroad.com/wp-content/uploads/2019/02/Amsterdam-river-clock-tower.jpg"
   },
   {
     "id": 6,
     "type": "note",
     "title": "Can't sleep. Thinking about what home means when you have two.",
-    "tags": ["personal", "porto", "london"],
-    "dimension": "identity",
-    "color": "#2C2C2C",
-    "accent": "#3A3A3A",
-    "ratio": 1,
-    "x": 250,
-    "y": 750
+    "tags": [
+      "personal",
+      "porto",
+      "london"
+    ],
+    "dimension": "identity"
   },
   {
     "id": 7,
     "type": "photo",
     "title": "Mum's bacalhau recipe",
-    "tags": ["porto", "food", "family"],
+    "tags": [
+      "porto",
+      "food",
+      "family"
+    ],
     "dimension": "people",
-    "color": "#D49A6A",
-    "accent": "#C89868",
-    "ratio": 0.8,
-    "x": 160,
-    "y": 900,
     "img": "https://annetravelfoodie.com/wp-content/uploads/2023/07/Best-cocktails-cocktail-bar-barcelona.jpg"
   },
   {
     "id": 8,
     "type": "music",
     "title": "Visible Cloaks — Reassemblage",
-    "tags": ["ambient", "electronic", "focus"],
+    "tags": [
+      "ambient",
+      "electronic",
+      "focus"
+    ],
     "dimension": "identity",
-    "color": "#6B7B8D",
-    "accent": "#707888",
-    "ratio": 1,
-    "x": 340,
-    "y": 1000,
     "img": "https://i.pinimg.com/736x/5f/4d/f3/5f4df3e3ffa0e4dcadffafeba26c04be.jpg"
   },
   {
     "id": 9,
     "type": "photo",
     "title": "Porto girls — New Year",
-    "tags": ["porto", "friends", "night"],
+    "tags": [
+      "porto",
+      "friends",
+      "night"
+    ],
     "dimension": "joy",
-    "color": "#C47B8B",
-    "accent": "#889870",
-    "ratio": 1.3,
-    "x": 80,
-    "y": 1100,
     "img": "https://offloadmedia.feverup.com/secretldn.com/wp-content/uploads/2020/02/22155403/shutterstock_1479750143-min-666x470.jpg"
   },
   {
     "id": 10,
     "type": "photo",
     "title": "Light through Barbican concrete",
-    "tags": ["london", "architecture", "brutalism"],
+    "tags": [
+      "london",
+      "architecture",
+      "brutalism"
+    ],
     "dimension": "places",
-    "color": "#9A9A8E",
-    "accent": "#A0A098",
-    "ratio": 1.5,
-    "x": 280,
-    "y": 1250,
     "img": "https://scannerdot.com/wp-content/uploads/STEDEIJK-0167.jpg"
   },
   {
     "id": 11,
     "type": "screenshot",
     "title": "Ceramic bowl — Katsumi Machimura",
-    "tags": ["japan", "ceramics", "inspiration"],
+    "tags": [
+      "japan",
+      "ceramics",
+      "inspiration"
+    ],
     "dimension": "identity",
-    "color": "#B8A890",
-    "accent": "#DDDDBB",
-    "ratio": 0.9,
-    "x": 150,
-    "y": 1400,
     "img": "https://www.ragoarts.com/items/index/2000/182_1_prints_multiples_june_2024_romare_bearden_mecklenburg_autumn_from_the_mecklenburg_series__rago_auction.jpg?t=1716409353"
   },
   {
     "id": 12,
     "type": "photo",
     "title": "Tokyo backstreet at 5am",
-    "tags": ["japan", "travel", "solo"],
+    "tags": [
+      "japan",
+      "travel",
+      "solo"
+    ],
     "dimension": "places",
-    "color": "#4A5568",
-    "accent": "#4A5060",
-    "ratio": 1.4,
-    "x": 320,
-    "y": 1500,
     "img": "https://images-prod.dazeddigital.com/640/azure/dazed-prod/1150/5/1155081.jpg"
   },
   {
     "id": 13,
     "type": "photo",
     "title": "Clerkenwell studio Friday",
-    "tags": ["london", "work", "architecture"],
+    "tags": [
+      "london",
+      "work",
+      "architecture"
+    ],
     "dimension": "experiences",
-    "color": "#A0937D",
-    "accent": "#A09080",
-    "ratio": 1.2,
-    "x": 60,
-    "y": 1650,
     "img": "https://www.stowbrothers.com/wp-content/uploads/2021/07/Stow-Brothers-HACKNEY-01.png"
   },
   {
     "id": 14,
     "type": "music",
     "title": "Caetano Veloso — Cucurrucucú",
-    "tags": ["brazilian", "saudade", "summer"],
+    "tags": [
+      "brazilian",
+      "saudade",
+      "summer"
+    ],
     "dimension": "identity",
-    "color": "#D4A574",
-    "accent": "#C8A078",
-    "ratio": 1,
-    "x": 250,
-    "y": 1780,
     "img": "https://i.pinimg.com/736x/8c/8f/c3/8c8fc3d62e5519811ac527d7538b9c66.jpg"
   },
   {
     "id": 15,
     "type": "photo",
     "title": "Barcelona rooftop — masters crew",
-    "tags": ["barcelona", "friends", "sunset"],
+    "tags": [
+      "barcelona",
+      "friends",
+      "sunset"
+    ],
     "dimension": "joy",
-    "color": "#E8A87C",
-    "accent": "#D0A878",
-    "ratio": 1.3,
-    "x": 140,
-    "y": 1900,
     "img": "https://app.thefeedfactory.nl/api/assets/6437c3c9b948490faad18ba0/_Stedelijk_Museum___2_.webp"
   },
   {
     "id": 16,
     "type": "note",
     "title": "Architecture is frozen music — Goethe. But what is melted architecture?",
-    "tags": ["quote", "architecture", "thinking"],
-    "dimension": "identity",
-    "color": "#2C2C2C",
-    "accent": "#3A3A3A",
-    "ratio": 0.8,
-    "x": 340,
-    "y": 2050
+    "tags": [
+      "quote",
+      "architecture",
+      "thinking"
+    ],
+    "dimension": "identity"
   },
   {
     "id": 17,
     "type": "photo",
     "title": "Half marathon finish",
-    "tags": ["london", "running", "achievement"],
+    "tags": [
+      "london",
+      "running",
+      "achievement"
+    ],
     "dimension": "joy",
-    "color": "#7DB8A0",
-    "accent": "#80B098",
-    "ratio": 1.5,
-    "x": 80,
-    "y": 2150,
     "img": "https://blog.kellywilliamsphotographer.com/wp-content/uploads//2023/09/best-manhattan-family-portrait-locations-3-1203.jpg"
   },
   {
     "id": 18,
     "type": "photo",
     "title": "Peckham sunset from roof",
-    "tags": ["london", "home", "light"],
+    "tags": [
+      "london",
+      "home",
+      "light"
+    ],
     "dimension": "places",
-    "color": "#D4826A",
-    "accent": "#C07080",
-    "ratio": 1.4,
-    "x": 280,
-    "y": 2300,
     "img": "https://variety.com/wp-content/uploads/2019/06/charli-xcx-2019-credit-marcus-cooper--e1560439702262.jpg?w=1000&h=566&crop=1"
   },
   {
     "id": 19,
     "type": "screenshot",
     "title": "Tadao Ando — Church of Light",
-    "tags": ["architecture", "inspiration", "light"],
+    "tags": [
+      "architecture",
+      "inspiration",
+      "light"
+    ],
     "dimension": "identity",
-    "color": "#8A8A80",
-    "accent": "#907868",
-    "ratio": 1.2,
-    "x": 160,
-    "y": 2450,
     "img": "https://www.normanrecords.com/artwork/large/204/205454-fka-twigs-eusexua.jpg"
   },
   {
     "id": 20,
     "type": "photo",
     "title": "Japanese breakfast I made",
-    "tags": ["food", "japan", "cooking"],
+    "tags": [
+      "food",
+      "japan",
+      "cooking"
+    ],
     "dimension": "experiences",
-    "color": "#C4B896",
-    "accent": "#C09868",
-    "ratio": 0.75,
-    "x": 50,
-    "y": 2580,
     "img": "https://cdn.britannica.com/50/178150-050-8C580926/marketplace-Jamaa-el-Fna-square-Morocco-Marrakech.jpg"
   },
   {
     "id": 21,
     "type": "photo",
     "title": "Dad at Douro river",
-    "tags": ["porto", "family", "river"],
+    "tags": [
+      "porto",
+      "family",
+      "river"
+    ],
     "dimension": "people",
-    "color": "#6A94A8",
-    "accent": "#6088A8",
-    "ratio": 1.3,
-    "x": 300,
-    "y": 2700,
     "img": "https://media.istockphoto.com/id/1403952374/photo/handsome-black-man-on-blue.jpg?s=170667a&w=0&k=20&c=FDSX7ldGyS1-LbpAEboRBAUkfcOFRapK4fdufPHPPfQ="
   },
   {
     "id": 22,
     "type": "music",
     "title": "DJ Nigga Fox — Noite e Dia",
-    "tags": ["lisbon", "electronic", "night"],
+    "tags": [
+      "lisbon",
+      "electronic",
+      "night"
+    ],
     "dimension": "identity",
-    "color": "#4A3A5C",
-    "accent": "#5A4870",
-    "ratio": 1,
-    "x": 120,
-    "y": 2850,
     "img": "https://media.istockphoto.com/id/1479798765/photo/vertical-group-of-happy-friends-posing-for-a-selfie-on-a-spring-day-as-they-party-together.jpg?s=612x612&w=0&k=20&c=3ch9k6zg71DfVtWzf1Q-TgJXPeQyoflY7fCpiPLmoZs="
   },
   {
     "id": 23,
     "type": "photo",
     "title": "Typography on Peckham wall",
-    "tags": ["london", "typography", "street"],
+    "tags": [
+      "london",
+      "typography",
+      "street"
+    ],
     "dimension": "identity",
-    "color": "#7A7A6E",
-    "accent": "#A0A098",
-    "ratio": 1.5,
-    "x": 320,
-    "y": 2950,
     "img": "https://scannerdot.com/wp-content/uploads/STEDEIJK-0167.jpg"
   },
   {
     "id": 24,
     "type": "photo",
     "title": "Porto — Sé cathedral stairs",
-    "tags": ["porto", "architecture", "stone"],
+    "tags": [
+      "porto",
+      "architecture",
+      "stone"
+    ],
     "dimension": "places",
-    "color": "#B8A080",
-    "accent": "#C8A070",
-    "ratio": 1.4,
-    "x": 80,
-    "y": 3100,
     "img": "https://cdn.sanity.io/images/we4m1nyk/production/6c0f8c3d07710c3822521b096e76d4155a68a983-2880x1920.png"
   },
   {
     "id": 25,
     "type": "note",
     "title": "I cook mum's recipes to feel close to her when I'm far away",
-    "tags": ["family", "food", "porto"],
-    "dimension": "people",
-    "color": "#2C2C2C",
-    "accent": "#3A3A3A",
-    "ratio": 0.9,
-    "x": 250,
-    "y": 3250
+    "tags": [
+      "family",
+      "food",
+      "porto"
+    ],
+    "dimension": "people"
   }
 ]
