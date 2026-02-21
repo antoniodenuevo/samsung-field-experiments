@@ -4,10 +4,11 @@ This file provides guidance to AI assistants (Claude and others) working with th
 
 ## Repository Overview
 
-This is a newly initialized repository. Update this section with a description of the project once development begins.
+This is a newly initialized repository with no application code yet. Update this section with a project description once development begins.
 
 **Repository:** `antoniodenuevo/f1eld-5am5ung`
-**Primary branch:** `main` (or `master`)
+**Primary branch:** `master`
+**Status:** Pre-development — only `CLAUDE.md` is present; tech stack and project goals are yet to be defined.
 
 ---
 
@@ -15,11 +16,14 @@ This is a newly initialized repository. Update this section with a description o
 
 _To be filled in as the project grows. Document the top-level directory layout here._
 
+**Current state (as of 2026-02-21):**
+
 ```
 /
-├── CLAUDE.md        # This file — guidance for AI assistants
-└── ...              # Add project structure as it develops
+└── CLAUDE.md        # This file — guidance for AI assistants
 ```
+
+No application code, configuration files, or dependencies exist yet. Once the tech stack is chosen, add the full directory layout here.
 
 ---
 
@@ -29,8 +33,8 @@ _To be filled in as the project grows. Document the top-level directory layout h
 
 - Feature branches follow the pattern: `<username>/<feature-name>` or `feature/<feature-name>`
 - AI-generated branches follow the pattern: `claude/<description>-<session-id>`
-- All changes should go through pull requests targeting the main branch
-- Never force-push to `main`/`master`
+- All changes should go through pull requests targeting `master`
+- Never force-push to `master`
 
 ### Commit Conventions
 
@@ -151,7 +155,7 @@ When working on this repository, AI assistants should:
 4. **No guessing** — If a requirement is ambiguous, ask the user rather than making assumptions.
 5. **Avoid security anti-patterns** — Never introduce command injection, SQL injection, XSS, hardcoded credentials, or other OWASP Top 10 vulnerabilities.
 6. **Commit clearly** — Use descriptive commit messages following the conventions above.
-7. **Branch correctly** — Develop on the designated branch (typically `claude/<description>-<session-id>` for AI work) and never push directly to main.
+7. **Branch correctly** — Develop on the designated branch (typically `claude/<description>-<session-id>` for AI work) and never push directly to `master`.
 8. **Update this file** — When the project structure, stack, or workflows change significantly, update the relevant sections of this CLAUDE.md.
 
 ---
